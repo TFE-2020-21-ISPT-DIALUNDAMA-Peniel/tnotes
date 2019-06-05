@@ -1,15 +1,17 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
 
 class User extends Authenticatable
 {
-    use Notifiable;
-    protected $primaryKey = 'idusers';
-
-
+    protected $primaryKey = "idusers";
+        protected $fillable = [
+       'nom','postnom','prenom','pseudo','e_mail','idroles','idsections'
+    ];
+    protected $hidden = [
+        'password'
+    ];
 }

@@ -17,7 +17,8 @@ class ListeAuditoiresDataTable extends DataTable
     {
         return datatables($query)
             ->addColumn('action', function($query){
-                return '<a href="'.route('section.getListStudent',$query->idauditoires).'" class="btn btn-outline-secondary"><i class="fas fa-list"></i> Afficher</a>';
+                return '<a href="'.route('section.getCoursByAuditoire',[$query->idauditoires]).'" class="btn btn-outline-secondary"><i class="fas fa-list"></i> Afficher les cours</a>';
+                return '';
             });
     }
 
@@ -29,7 +30,7 @@ class ListeAuditoiresDataTable extends DataTable
      */
     public function query(Auditoire $model)
     {
-        return $model::get();
+        return $model::TrieAuditoire()->AuditoireBySection(auth()->user()->idsections)->get();
     }
 
     /**
@@ -59,7 +60,7 @@ class ListeAuditoiresDataTable extends DataTable
                         'data' => 'lib',
                         'title' => 'Auditoires',
                         'searchable' => true,
-                        'orderable' => true,
+                        'orderable' => false,
                         // 'render' => 'pap',
                         'exportable' => true,
                         'printable' => true,
@@ -69,7 +70,7 @@ class ListeAuditoiresDataTable extends DataTable
                         'data' => 'abbr',
                         'title' => 'Abbréviation',
                         'searchable' => true,
-                        'orderable' => true,
+                        'orderable' => false,
                         // 'render' => 'pap',
                         'exportable' => true,
                         'printable' => true,
@@ -79,8 +80,6 @@ class ListeAuditoiresDataTable extends DataTable
 
     protected function getBuilderParameters(){
         return [
-            'dom' => '',
-            'order' => [[1,'Asc']]
         ];
     }
 

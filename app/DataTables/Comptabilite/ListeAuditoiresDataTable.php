@@ -17,7 +17,7 @@ class ListeAuditoiresDataTable extends DataTable
     {
         return datatables($query)
             ->addColumn('action', function($query){
-                return '<a href="'.route('comptabilite.getListStudent',$query->idauditoires).'" class="btn btn-outline-secondary"><i class="fas fa-list"></i> Afficher</a>';
+                return '<a href="'.route('comptabilite.getListStudent',$query->idauditoires).'" class="edit-modal btn btn-outline-secondary"><i class="fas fa-list"></i> Afficher</a>';
             });
     }
 

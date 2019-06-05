@@ -46,6 +46,11 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'titulaires' => [
+            'driver' => 'session',
+            'provider' => 'titulaires',
+        ],
     ],
 
     /*
@@ -66,9 +71,19 @@ return [
     */
 
     'providers' => [
+        // 'users' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\User::class,
+        // ],
+
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'titulaires' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Titulaire::class,
         ],
 
         // 'users' => [
@@ -98,6 +113,11 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
+        // 'titulaires' => [
+        //     'provider' => 'titulaires',
+        //     'table' => 'password_resets',
+        //     'expire' => 60,
+        // ],
     ],
 
 ];

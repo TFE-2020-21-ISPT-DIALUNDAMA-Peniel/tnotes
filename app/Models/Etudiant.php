@@ -108,6 +108,13 @@ class Etudiant extends Model
 
     }
 
+    /**
+    * Cour join prof
+    */
+   public static function scopeJoinCote($query){
+        return $query->leftJoin('cotes','etudiants.idetudiants','cotes.idetudiants');
+    }
+
 }
 
 

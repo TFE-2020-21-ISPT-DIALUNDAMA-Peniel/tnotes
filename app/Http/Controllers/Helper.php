@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 class Helper extends Controller
 {
     public static function  getPrefixeRoute($request){
-    	if (!empty($request['PATH_INFO'])) {
-			$path_info = $request['PATH_INFO'];
+    	if (!empty($request->server()['PATH_INFO'])) {
+			$path_info = $request->server()['PATH_INFO'];
 		    $path_info =trim($path_info,'/');
 		    $prefixe = explode('/',$path_info)[0];
 		   

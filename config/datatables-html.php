@@ -5,9 +5,9 @@ return [
      * Default table attributes when generating the table.
      */
     'table' => [
-        'class' => 'table',
+        'class' => 'table  table-striped table-bordered',
         'id'    => 'dataTableBuilder',
-        // 'style' => 'background:#F3F3F3',
+        'style' => 'width: 100%',
     ],
 
     /*

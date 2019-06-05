@@ -16,43 +16,61 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-	$data =  App\Models\Auditoire::getBilan();
-    return view('test');
+	$data =  App\Models\Cote::getFicheCote(7,5);
+	dd($data->get());																										
+    return $data;
 });
 
+Route::get('/home', 'HomeController@index')->name('home');
 
-Route::prefix('comptabilite')->group(function(){
-	Route::name('comptabilite.')->group(function () {
-		Route::get('/','Comptabilite\DashboardController@index')->name('index');
-		Route::get('/auditoire/{auditoire}','Comptabilite\DashboardController@getListStudent')->name('getListStudent');
-		
-		Route::get('/autorise/{etudiant}','Comptabilite\DashboardController@autoriseStudent')->name('autoriseStudent');
-		Route::post('/createEtudiant','Comptabilite\DashboardController@createEtudiant')->name('createEtudiant');
-		Route::get('/createEtudiant',function(){return redirect()->back();});
-		Route::post('/updateEtudiant','Comptabilite\DashboardController@updateEtudiant')->name('updateEtudiant');
-		Route::get('/updateEtudiant',function(){return redirect()->back();});
+Route::get('/titulaires-login', 'Auth\TitulairesLoginController@showLoginForm')->name('prof-login');
+Route::post('/titulaires-login', ['as'=> 'titulaires-login','uses'=>'Auth\TitulairesLoginController@login']);
 
+/*|||||||||||||||||||||||||||||||||||||
+|
+|  Routes pour le professeur
+|
+|||||||||||||||||||||||||||||||||||||*/
+Route::prefix('professeur')->group(function(){
+	Route::name('professeur.')->group(function () {
+		Route::get('/', 'Profs\DashboardController@index' )->name('index');
+		Route::post('/redirect_fiche', 'Profs\DashboardController@redirectFiche' )->name('redirect_fiche');
+		Route::get('/get_fiche/cours/{idcours}/{idtype_cotes}','Profs\DashboardController@getFiche')->name('get_fiche');
+		Route::post('/set_cote','Profs\DashboardController@setCote')->name('set_cote');
+		Route::post('/send_fiche','Profs\DashboardController@sendFiche')->name('send_fiche');
+
+
+
+
+		// Déconnexion prof
+		Route::post('/prof-logout',function(){
+			auth()->logout();
+			return redirect()->route('prof-login');
+		})->name('logout');
 	});
+
+
+
+
+
+	
 });
+
+/*|||||||||||||||||||||||||||||||||||||
+|
+|  Routes pour la section
+|
+|||||||||||||||||||||||||||||||||||||*/
 Route::prefix('section')->group(function(){
 	Route::name('section.')->group(function () {
-		Route::get('/','Section\DashboardController@index')->name('index');
-		Route::get('/liste-auditoires','Section\DashboardController@getlistAuditoires')->name('getListAuditoires');
-		Route::get('/auditoire/{auditoire}','Section\DashboardController@getListStudent')->name('getListStudent');
-		
-		Route::get('/enrolerEtudiant/{etudiant}','Section\DashboardController@enrolerEtudiant')->name('enrolerEtudiant');
-		Route::get('/destroyEnrolement/{enrole}','Section\DashboardController@destroyEnrolement')->name('!enrolerEtudiant');
-		Route::get('enroles/auditoire/{auditoire}','Section\DashboardController@getListStudentEnroler')->name('getListStudentEnroles');
-		Route::get('bilan','Section\DashboardController@getBilan')->name('getBilan');
-		// Route::post('/createEtudiant','Section\DashboardController@createEtudiant')->name('createEtudiant');
-		// Route::get('/createEtudiant',function(){return redirect()->back();});
-		// Route::post('/updateEtudiant','Section\DashboardController@updateEtudiant')->name('updateEtudiant');
-		// Route::get('/updateEtudiant',function(){return redirect()->back();});
+		Route::get('/', 'Section\DashboardController@getListAuditoires')->name('index');
+		// Cours
+		Route::get('/getCoursAuditoire/{auditoire}', 'Section\DashboardController@getCoursByAuditoire')->name('getCoursByAuditoire');
+		Route::resource('/gestion_cours', 'Gestions\CoursController')->only(['store']);
+
 
 	});
 });
+
 Auth::routes();
 
-Route::get('/home',function(){
-	return App\Http\Controllers\Helper::redirectToDashboard();
-})->name('home');

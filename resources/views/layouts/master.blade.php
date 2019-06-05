@@ -50,10 +50,10 @@
          {{--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button> --}}
-                <a class="navbar-brand mx-auto d-block" href="{{ route('home') }}">ISPT - KIN</a> 
+                <a class="navbar-brand mx-auto d-block" href="{{ route('home') }}">TCotes | ISPT </a> 
             </div>
             <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">
-            <h2 class="badge badge-info">{{ \App\Http\Controllers\Helper::getUserRole() }}</h2>   
+            <h2 class="badge badge-info">Section</h2>   
             <span id="date_heure"></span> &nbsp; 
             <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-danger square-btn-adjust">Déconnexion</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -71,9 +71,18 @@
                     <li>
                         <a class="sidebar-link has-arrow waves-effect waves-dark"  href="{{ route('home') }}"><i class="fas fa-tachometer-alt fa-2x"></i> Tableau de bord</a>
                     </li>
-                    <li>
-                        <a class="sidebar-link has-arrow waves-effect waves-dark"  href="{{ route('section.getListAuditoires') }}"><i class=" fas fa-th-list fa-2x"></i> Enrôlements</a>
+                    {{-- <li>
+                        <a class="sidebar-link has-arrow waves-effect waves-dark"  href="#"><i class=" fas fa-th-list fa-2x"></i>Gestion des étudiants</a>
                     </li>
+                    <li>
+                        <a class="sidebar-link has-arrow waves-effect waves-dark"  href="#"><i class=" fas fa-th-list fa-2x"></i>Gestion des professeurs</a>
+                    </li>
+                    <li>
+                        <a class="sidebar-link has-arrow waves-effect waves-dark"  href="{{ route('section.index') }}"><i class=" fas fa-th-list fa-2x"></i>Gestion des cours</a>
+                    </li> --}}
+                    {{-- <li>
+                        <a class="sidebar-link has-arrow waves-effect waves-dark"  href="#"><i class=" fas fa-th-list fa-2x"></i>Gestion des cours</a>
+                    </li> --}}
                     <li>
                         <a class="sidebar-link has-arrow waves-effect waves-dark"  href="#"><i class=" fas fa-user fa-2x"></i> Mon profil</a>
                     </li>

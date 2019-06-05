@@ -11,9 +11,9 @@
       </div>
       <div class="modal-body">
         {{-- msg d'erreur --}}
-        @include('frontend.partials._msgFlash')
+        @include('partials._msgFlash')
         {{-- Formulaire --}}
-        <form id="etudiantForm" action="{{ route('jury.etudiant.store') }}" method="POST" name="etudiantForm" class="form-horizontal">
+        <form id="etudiantForm" action="#" method="POST" name="etudiantForm" class="form-horizontal">
             @csrf
            <input type="hidden" name="idetudiants" id="fidetudiants">
             <div class="form-group">
@@ -71,3 +71,7 @@
     </div>
   </div>
 </div>
+
+@push('scripts')
+
+@endpush

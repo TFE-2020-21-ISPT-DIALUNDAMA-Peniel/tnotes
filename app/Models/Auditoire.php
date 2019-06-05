@@ -14,23 +14,28 @@ class Auditoire extends Model
 
     }
 
-    public static function getBilan(){
-    	$bilan = [];
-    	$auditoires = self::get();
-    	 foreach($auditoires as $auditoire){
-    	 	// dump($auditoire->idauditoires);
-    	 	$bilan[] = 
-	 				[
-	 					'auditoire' => $auditoire->lib,
-                        'nbrEtudiant' => Etudiant::getNbrEtudiantByAuditoire($auditoire->idauditoires),
-	 					'nbrEtudiantActif' => Etudiant::getNbrEtudiantActifByAuditoire($auditoire->idauditoires),
-	 					'nbrEtudiantEnroles' => Enrole::getNbrEtudiantByAuditoire($auditoire->idauditoires),
-	 					'nbrEtudiantOrdinaire' => Etudiant::getNbrEtudiantByProfilByAuditoire($auditoire->idauditoires,'ordinaire'),
-	 					'nbrEtudiantAyantDroit' => Etudiant::getNbrEtudiantByProfilByAuditoire($auditoire->idauditoires,'ayant droit'),
-	 				];
-    	 }
-    	return collect($bilan);
+    
+
+    /**
+    * Auditoires trié
+    */
+
+    public static function scopeTrieAuditoire($query){
+
+        
+        return $query->orderBy('idpromotions','ASC')
+                     ->orderBy('idsections','ASC')
+                     ->orderBy('idfacultes','ASC')
+                     ->orderBy('idauditoires','ASC');
 
     }
+
+    /**
+    * auditoire par section
+    */
+   public static function scopeAuditoireBySection($query,$idsections){
+        return $query->where('auditoires.idsections',$idsections);
+    }
+
 
 }
