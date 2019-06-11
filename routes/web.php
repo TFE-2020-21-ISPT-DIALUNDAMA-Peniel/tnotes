@@ -64,9 +64,27 @@ Route::prefix('professeur')->group(function(){
 Route::prefix('section')->group(function(){
 	Route::name('section.')->group(function () {
 		Route::get('/', 'Section\DashboardController@getListAuditoires')->name('index');
+		// Session Import
+		
+		Route::get('/importation_cotes', 'Section\DashboardController@importSession')->name('session_import');
+		Route::get('/importation_cotes/{type_cote}', 'Section\DashboardController@getImportSession')->name('get_session_import');
+		Route::get('/importation_cote/{type_cote}/{auditoire}', 'Section\DashboardController@getImportSession')->name('get_session_import_by_auditoire');
+		Route::get('/importation_fiche_cote', 'Section\DashboardController@getFicheImport')->name('get_fiche');
+		
+		// Etudiants
+		Route::get('/etudiants', 'Section\DashboardController@getListAuditoiresEtudiants')->name('get_etudiants');
+		Route::get('/get_etudiants_auditoires/{auditoire}', 'Section\DashboardController@getListStudent')->name('get_etudiants_by_auditoire');
+		Route::resource('/gestion_etudiant', 'Gestions\EtudiantController')->only(['store']);
+
+
 		// Cours
+		Route::get('/get_cours_auditoires', 'Section\DashboardController@getListAuditoires')->name('get_cours');
 		Route::get('/getCoursAuditoire/{auditoire}', 'Section\DashboardController@getCoursByAuditoire')->name('getCoursByAuditoire');
 		Route::resource('/gestion_cours', 'Gestions\CoursController')->only(['store']);
+		
+		// Professeurs
+		Route::get('/professeurs', 'Section\DashboardController@getListProfeseurs')->name('get_prof');
+		Route::resource('/gestion_prof', 'Gestions\ProfController')->only(['store']);
 
 
 	});

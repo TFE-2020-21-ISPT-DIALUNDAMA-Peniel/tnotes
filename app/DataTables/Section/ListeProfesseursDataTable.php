@@ -2,10 +2,10 @@
 
 namespace App\DataTables\Section;
 
-use App\Models\Etudiant;
+use App\Models\Titulaire;
 use Yajra\DataTables\Services\DataTable;
 
-class ListeEtudiantByAuditoireDataTable extends DataTable
+class ListeProfesseursDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -17,12 +17,12 @@ class ListeEtudiantByAuditoireDataTable extends DataTable
     {
         return datatables($query)
             ->addColumn('action', function($query){
-                return '<button type="button" class="edit-modal btn btn-primary" data-toggle="modal" data-target="#editModal" data-info="'.$query->idetudiants.','.$query->matricule.','.$query->nom.','.$query->postnom.','.$query->prenom.','.$query->idauditoires.'">
+                return '<button type="button" class="edit-modal btn btn-primary" data-toggle="modal" data-target="#editModal" data-info="'.$query->idtitulaires.','.$query->matricule.','.$query->nom.','.$query->postnom.','.$query->prenom.'">
                       <span class="fas fa-edit"> </span>
                     </button>'
 
                      .'  '.
-                    '<button type="button" class="edit-modal btn btn-danger" data-toggle="modal" data-target="#Modal" data-info="'.$query->idcours.','.$query->lib.','.$query->ponderation.','.$query->idetudiants.','.$query->idauditoires.'">
+                    '<button type="button" class="edit-modal btn btn-danger" data-toggle="modal" data-target="#editModal" data-info="'.$query->idcours.','.$query->lib.','.$query->ponderation.','.$query->idtitulaires.','.$query->idauditoires.'">
                       <span class=" fas fa-trash"> </span>
                     </button>';
             });
@@ -34,18 +34,9 @@ class ListeEtudiantByAuditoireDataTable extends DataTable
      * @param \App\User $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Etudiant $model)
+    public function query(Titulaire $model)
     {
-        return $model::EtudiantParAuditoire($this->idauditoires)
-                        ->EtudiantActif()
-                        ->get([
-                        'idetudiants',
-                        'matricule',
-                        'nom',
-                        'postnom',
-                        'prenom',
-                        'idauditoires',
-                    ]);
+        return $model->where('idgrades',1)->get();
     }
 
     /**
@@ -58,7 +49,7 @@ class ListeEtudiantByAuditoireDataTable extends DataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->addAction(['printable' => false, 'width' => '120px'])
+                    ->addAction(['width' => '100px'])
                     ->parameters($this->getBuilderParameters());
     }
 
@@ -70,17 +61,20 @@ class ListeEtudiantByAuditoireDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            // 'idtitulaires',
             'matricule',
             'nom',
             'postnom',
             'prenom',
+            'pseudo',
+            // 'nom',
             
         ];
     }
 
     protected function getBuilderParameters(){
         return [
-            'order' => [[1,'Asc']]
+           
         ];
     }
 
@@ -91,6 +85,6 @@ class ListeEtudiantByAuditoireDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Comptabilite/Liste_Etudiants' . date('YmdHis');
+        return 'Section/ListeProfesseurs_' . date('YmdHis');
     }
 }

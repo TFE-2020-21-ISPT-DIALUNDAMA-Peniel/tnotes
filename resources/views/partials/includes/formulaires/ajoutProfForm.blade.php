@@ -12,10 +12,9 @@
         {{-- msg d'erreur --}}
         @include('partials._msgFlash')
         {{-- Formulaire --}}
-        <form id="etudiantForm" action="{{ route('section.gestion_etudiant.store') }}" method="POST" name="etudiantForm" class="form-horizontal">
+        <form id="profForm" action="{{ route('section.gestion_prof.store') }}" method="POST" name="profForm" class="form-horizontal">
             @csrf
-           <input type="hidden" name="idetudiants" id="fidetudiants">
-           <input type="hidden" name="idauditoires" id="idauditoires" value="<?= !empty($idauditoireSelected) ? $idauditoireSelected : '' ?>">
+           <input type="hidden" name="idtitulaires" id="fidtitulaires">
             <div class="form-group">
                 <label for="matricule"  class="col-sm-2 control-label">Matricule</label>
                 <div class="col-sm-12">
@@ -33,14 +32,15 @@
                 <div class="col-sm-12">
                     <input type="text" id="fpostnom" class="form-control" id="postnom" name="postnom" placeholder="Entrer postnom étudiant"  maxlength="50" >
                 </div>
-            </div><div class="form-group">
+            </div>
+            <div class="form-group">
                 <label for="prenom"  class="col-sm-2 control-label">Prenom</label>
                 <div class="col-sm-12">
                     <input type="text" id="fprenom" class="form-control" id="prenom" name="prenom" placeholder="Entrer prenom étudiant"  maxlength="50" >
                 </div>
             </div>
             @include('partials.includes.formulaires._getAuditoires');
-            
+           
         {{--     <div class="col-sm-offset-2 col-sm-10">
              <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save changes
              </button>
@@ -67,7 +67,7 @@
         resetmodalData()
         $('.form-horizontal').trigger("reset");
         $('.form-horizontal').show();
-        $('#editModal').modal('show');
+        $('#myModal').modal('show');
         });
 
     {{-- edition du formulaire --}}
@@ -92,7 +92,7 @@
 
     // remplissage formulaire par les donnée d'une ligne selectionée
     function fillmodalData(details){
-            $('#fidetudiants').val(details[0]);
+            $('#fidtitulaires').val(details[0]);
             $('#fmatricule').val(details[1]);
             $('#fnom').val(details[2]);
             $('#fpostnom').val(details[3]);
@@ -105,7 +105,7 @@
             }
 
     function resetmodalData(){
-            $('#fidetudiants').val('');
+            $('#fidtitulaires').val('');
             $('#fmatricule').val('');
             $('#fnom').val('');
             $('#fpostnom').val('');
@@ -118,17 +118,17 @@
 
 
 
-    $('#etudiantForm').on('submit', function(e) {
+    $('#profForm').on('submit', function(e) {
         e.preventDefault();
         $('#msgErrors').html('');
         $('#msgErrors').attr('hidden','true');
 
         $.ajax({
             type: 'post',
-            url: '{{ route('section.gestion_etudiant.store') }}',
+            url: '{{ route('section.gestion_prof.store') }}',
             data: {
                 '_token': $('input[name=_token]').val(),
-                'idetudiants': $("#fidetudiants").val(),
+                'idtitulaires': $("#fidtitulaires").val(),
                 'matricule': $("#fmatricule").val(),
                 'nom': $('#fnom').val(),
                 'postnom': $('#fpostnom').val(),

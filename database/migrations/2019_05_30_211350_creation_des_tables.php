@@ -69,10 +69,10 @@ class CreationDesTables extends Migration
             $table->increments('idetudiants');
             $table->string('matricule',70);
             $table->string('nom',70);
-            $table->string('postnom',70);
-            $table->string('prenom',70);
+            $table->string('postnom',70)->nullable();
+            $table->string('prenom',70)->nullable();
             $table->unsignedInteger('idauditoires');
-            $table->enum('statut'[0,1]);
+            $table->enum('statut'[0,1])->default(1);
             
             $table->foreign('idauditoires')
                   ->references('idauditoires')->on('auditoires');
@@ -106,8 +106,8 @@ class CreationDesTables extends Migration
             $table->increments('idtitulaires');
             $table->string('matricule',70);
             $table->string('nom',70);
-            $table->string('postnom',70);
-            $table->string('prenom',70);
+            $table->string('postnom',70)->nullable();
+            $table->string('prenom',70)->nullable();
             $table->string('pseudo',70);
             $table->string('password',255);
             $table->unsignedInteger('idgrades');

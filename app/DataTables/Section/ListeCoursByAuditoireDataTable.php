@@ -18,11 +18,11 @@ class ListeCoursByAuditoireDataTable extends DataTable
         return datatables($query)
             ->addColumn('action', function($query){
                 return  
-                    '<a href="#" class="btn btn-success">
-                      <span class=" fas fa-list"> </span>
-                    </a>'
+                    // '<a href="#" class="btn btn-success">
+                    //   <span class=" fas fa-list"> </span>
+                    // </a>'
                 
-                    .'  '.
+                    // .'  '.
                     '<button type="button" class="edit-modal btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" data-info="'.$query->idcours.','.$query->lib.','.$query->ponderation.','.$query->idtitulaires.','.$query->idauditoires.'">
                       <span class="fas fa-edit"> </span>
                     </button>'
@@ -65,7 +65,7 @@ class ListeCoursByAuditoireDataTable extends DataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->addAction(['width' => '150px'])
+                    ->addAction(['width' => '120px'])
                     ->parameters($this->getBuilderParameters());
     }
 

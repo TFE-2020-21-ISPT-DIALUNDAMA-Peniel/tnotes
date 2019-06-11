@@ -1,4 +1,3 @@
-@inject('auditoires', 'App\Models\Auditoire')
 @inject('titulaires', 'App\Models\Titulaire')
 
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -41,26 +40,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Auditoire</label>
-                <div class="col-sm-12" id="audit">
-                    @php 
-                    $disabled = !empty($idauditoireSelected) ? 'disabled' : ''; @endphp
-                    <select class="form-control" id="fidauditoires" name="idauditoires" required="" {{ $disabled }}>
-                        @foreach($auditoires::getAuditoireGroupBySection() as $sections)
-                            <optgroup label="{{ $sections[0]->section_lib  }}">
-                                @foreach ($sections as $auditoire)
-                                    @if(!empty($idauditoireSelected) && $idauditoireSelected == $auditoire->idauditoires)
-                                    <option value="{{ $auditoire->idauditoires }}" selected >{{ $auditoire->lib }}</option>
-                                    @else
-                                    <option value="{{ $auditoire->idauditoires }}"  >{{ $auditoire->lib }}</option>
-                                    @endif
-                                @endforeach
-                            </optgroup>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
+            @include('partials.includes.formulaires._getAuditoires');
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>

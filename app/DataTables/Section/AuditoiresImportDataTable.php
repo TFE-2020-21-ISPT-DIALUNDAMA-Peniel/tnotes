@@ -5,9 +5,9 @@ namespace App\DataTables\Section;
 use App\Models\Auditoire;
 use Yajra\DataTables\Services\DataTable;
 
-class ListeAuditoiresDataTable extends DataTable
+class AuditoiresImportDataTable extends DataTable
 {
-    /**
+   /**
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
@@ -17,8 +17,7 @@ class ListeAuditoiresDataTable extends DataTable
     {
         return datatables($query)
             ->addColumn('action', function($query){
-                return '<a href="'.route('section.'.$this->route,[$query->idauditoires]).'" class="btn btn-outline-secondary"><i class="fas fa-list"></i> Afficher les cours</a>';
-                return '';
+                return '<a href="'.route('section.get_session_import_by_auditoire',['type_cote'=>$this->type_cote,'auditoire'=>$query->idauditoires]).'" class="btn btn-outline-secondary"><i class="fas fa-list"></i> Afficher les cours</a>';
             });
     }
 
@@ -30,7 +29,12 @@ class ListeAuditoiresDataTable extends DataTable
      */
     public function query(Auditoire $model)
     {
-        return $model::TrieAuditoire()->AuditoireBySection(auth()->user()->idsections)->get();
+        return $model::TrieAuditoire()->AuditoireBySection(auth()->user()->idsections)
+                                    ->get([
+                                        'auditoires.idauditoires',
+                                        'auditoires.lib',
+                                        'auditoires.abbr',
+                                    ]);
     }
 
     /**

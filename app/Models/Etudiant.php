@@ -20,19 +20,20 @@ class Etudiant extends Model
     protected $fillable = [
         'matricule','nom','postnom','prenom','idauditoires','frais','idprofils','commentaire','statut'
     ];
+    public $timestamps =false;
 
-    /**
-     * Evénement éloquent lors de la creation d'un étudiant
-     * l'année academique en cours est recuperée automatique
-     */
-    protected static function boot(){
-        parent::boot();
+    // /**
+    //  * Evénement éloquent lors de la creation d'un étudiant
+    //  * l'année academique en cours est recuperée automatique
+    //  */
+    // protected static function boot(){
+    //     parent::boot();
 
-        static::creating(function($etudiant){
-            $etudiant->annee_acad = Gestion_annee::getAnneeAcademiqueEnCours()->idgestion_annees;
+    //     static::creating(function($etudiant){
+    //         $etudiant->annee_acad = Gestion_annee::getAnneeAcademiqueEnCours()->idgestion_annees;
 
-        });
-    }
+    //     });
+    // }
 
     public static function getNbrEtudiantByAuditoire($idauditoire){
         return self::where('idauditoires',$idauditoire)->count();
