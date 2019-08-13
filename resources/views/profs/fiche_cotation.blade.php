@@ -18,9 +18,11 @@
 	  	{!!$dataTable->table() !!}
 
 	  </div>
+	  @if(!App\Models\Fiches_envoye::isSended($idtype_cotes->idtype_cotes,$idcours->idcours))
 	  <div class="card-footer text-center">
 		<a href="#" id="send-fiche" class="btn btn-primary btn-block">Envoyer la fiche</a>
 	  </div>
+	  @endif
 	</div>
 	
 	
@@ -49,9 +51,9 @@
         {{-- Formulaire --}}
         <form id="cote-form" action="{{ route('professeur.set_cote') }}" method="POST" name="cote-form" class="form-horizontal">
             @csrf
-           <input type="hidden" name="idcotes" id="fidcotes" >
-           <input type="hidden" name="idetudiants" id="fidetudiants" required="">
-           <input type="hidden" name="idcours" id="fidcours" value="{{ $idcours->idcours }}" required="">
+           <input type="text" name="idcotes" id="fidcotes" style="display: none">
+           <input type="text" name="idetudiants" id="fidetudiants" required="" style="display: none">
+           <input type="text" name="idcours" id="fidcours" value="{{ $idcours->idcours }}" required="" style="display: none">
            <input type="hidden" name="idtype_cotes" id="fidtype_cotes" value="{{ $idtype_cotes->idtype_cotes }}" required="">
            {{-- <input type="hidden" name="idcotes" id="idcotes" value="{{ $auditoire->idauditoires }}"> --}}
             <div class="form-group">
@@ -64,6 +66,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <a href="{{ route('professeur.send_fiche',['type_cotes'=>$idtype_cotes->idtype_cotes,'cours'=>$idcours->idcours]) }}" class="send_fiche btn btn-primary invisible">Envoyer</a>
         <button type="submit" class="actionBtn save btn btn-primary">Valider</button>
       </div>
         </form>
@@ -89,7 +92,8 @@
 			$('#footer_action_button').removeClass('fas fa-trash');
 			$('.actionBtn').addClass('btn-primary');
 			$('.actionBtn').removeClass('btn-danger');
-			$('.actionBtn').removeClass('send');
+			$('.actionBtn').removeClass('invisible');
+			$('.send_fiche').addClass('invisible');
 			$('.actionBtn').addClass('edit');
 			$('.modal-title').text('Modifier');
 
@@ -146,13 +150,14 @@
 	$('#send-fiche').on('click', function(e) {
 		e.preventDefault();
       	$('.deleteContent').removeAttr('hidden','false');
-		$('#footer_action_button').text(" Delete");
+		$('#footer_action_button').text("Delete");
 		$('#footer_action_button').removeClass('glyphicon-check');
 		$('#footer_action_button').addClass('glyphicon-trash');
 		$('.actionBtn').removeClass('btn-primary');
 		$('.actionBtn').addClass('btn-danger');
 		$('.actionBtn').removeClass('edit');
-		$('.actionBtn').addClass('send');
+		$('.actionBtn').addClass('invisible');
+		$('.send_fiche').removeClass('invisible');
 		$('.modal-title').text('Delete');
 		$('.deleteContent').show();
 		$('.form-horizontal').hide();
@@ -166,7 +171,7 @@
 
 		$.ajax({
 			type: 'post',
-			url: '{{ route('professeur.send_fiche') }}',
+			url: '#',
 			data: {
 				'_token': $('input[name=_token]').val(),
 				'idcours': $('#fidcours').val(),

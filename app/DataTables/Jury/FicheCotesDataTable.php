@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables\Profs;
+namespace App\DataTables\Jury;
 
 use App\Models\Cote;
 use Yajra\DataTables\Services\DataTable;
@@ -15,10 +15,10 @@ class FicheCotesDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        return datatables($query)
-            ->addColumn('action', function($query){
-                return '<button type="button" class="link-cote btn btn-info"  data-info="'.$query->idcotes.','.$query->cote.','.$query->idetudiants.'" data-toggle="modal" data-target="#exampleModalCenter"><span class= "fas fa-edit"> </span></button>';
-            });
+        return datatables($query);
+            // ->addColumn('action', function($query){
+            //     return '<button type="button" class="link-cote btn btn-info"  data-info="'.$query->idcotes.','.$query->cote.','.$query->idetudiants.'" data-toggle="modal" data-target="#exampleModalCenter"><span class= "fas fa-edit"> </span></button>';
+            // });
     }
 
     /**
@@ -56,7 +56,7 @@ class FicheCotesDataTable extends DataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->addAction(['width' => 'auto'])
+                    // ->addAction(['width' => 'auto'])
                     ->parameters($this->getBuilderParameters());
     }
 
@@ -167,7 +167,7 @@ class FicheCotesDataTable extends DataTable
     private function paramBtn($type,$name='Imprimer'){
         return [
                                 'extend' => $type,
-                                'filename' => 'Fiche'.$this->auditoire,
+                                'filename' => 'Fiche de côtes_'.$this->type_cotes.'_'.$this->auditoire.'_'.$this->cours.'_'.$this->titulaire,
                                 'title' => 'Fiche',
                                 'message' => $this->auditoire,
                                 'text' => $name,

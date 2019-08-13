@@ -15,6 +15,7 @@ use App\Models\Type_cote;
 use App\Models\Auditoire;
 use App\Models\Titulaire;
 use App\Models\Cote;
+use App\Models\Fiches_envoye;
 
 
 class DashboardController extends Controller
@@ -64,9 +65,12 @@ class DashboardController extends Controller
      * @param $type_cotes
      * @return dataTable
      */
-    public function sendFiche(SendFicheRequest $request){
-       dd($request);
-           
+    public function sendFiche(Type_cote $type_cotes,Cour $cours){
+       Fiches_envoye::create([
+        'idcours'=>$cours->idcours,
+        'idtype_cotes'=>$type_cotes->idtype_cotes,
+       ]);
+      return redirect()->back();     
 
     }
 

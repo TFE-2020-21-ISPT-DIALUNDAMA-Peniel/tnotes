@@ -41,15 +41,15 @@ class LoginController extends Controller
         return 'username';
     }
 
-    // protected function redirectTo()
-    // {
-    //     if (auth()->check()) {
-    //         $role = \App\Models\Users_role::find(auth()->user()->idusers_roles);
-    //         return route($role->lib.'.index');
-    //     }
+    protected function redirectTo()
+    {
+        if (auth()->check()) {
+            $role = auth()->user()->users_roles;
+            return route($role.'.index');
+        }
         
-    //   return abort();
-    // }
+      return abort();
+    }
     
      /**
      * Show the application's login form.

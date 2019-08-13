@@ -37,7 +37,8 @@ Route::prefix('professeur')->group(function(){
 		Route::post('/redirect_fiche', 'Profs\DashboardController@redirectFiche' )->name('redirect_fiche');
 		Route::get('/get_fiche/cours/{idcours}/{idtype_cotes}','Profs\DashboardController@getFiche')->name('get_fiche');
 		Route::post('/set_cote','Profs\DashboardController@setCote')->name('set_cote');
-		Route::post('/send_fiche','Profs\DashboardController@sendFiche')->name('send_fiche');
+		// Route::post('/send_fiche','Profs\DashboardController@sendFiche')->name('send_fiche');
+		Route::get('/send_fiche/{type_cotes}/{cours}','Profs\DashboardController@sendFiche')->name('send_fiche');
 
 
 
@@ -86,6 +87,24 @@ Route::prefix('section')->group(function(){
 		Route::get('/professeurs', 'Section\DashboardController@getListProfeseurs')->name('get_prof');
 		Route::resource('/gestion_prof', 'Gestions\ProfController')->only(['store']);
 
+
+	});
+});
+
+/*|||||||||||||||||||||||||||||||||||||
+|
+|  Routes pour le jury
+|
+|||||||||||||||||||||||||||||||||||||*/
+Route::prefix('jury')->group(function(){
+	Route::name('jury.')->group(function () {
+		Route::get('/', 'Jury\DashboardController@index')->name('index');
+		// Importation cotes
+		Route::get('/importation_cotes', 'Jury\DashboardController@importSession')->name('session_import');
+		Route::get('/importation_cotes/{type_cote}', 'Jury\DashboardController@getImportSession')->name('get_session_import');
+		Route::get('/importation_cote/{type_cote}/{auditoire}', 'Jury\DashboardController@getCoursImportByAuditoire')->name('get_session_import_by_auditoire');
+		Route::get('/importation_fiche_cote/{fiches_envoye}', 'Jury\DashboardController@getFicheImport')->name('get_fiche');
+		
 
 	});
 });

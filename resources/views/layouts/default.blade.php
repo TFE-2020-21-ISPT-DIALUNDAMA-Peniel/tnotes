@@ -52,6 +52,8 @@
                     <img style="max-width: 60%" src="{{ asset('/img/logoIspt.gif') }}" class="user-image rounded-circle img-responsive img-fluid"/>
                 </li>
                 <br>
+             
+    @if(auth()->user()->users_roles == 'section')
               <li class="nav-item">
                 <a class="nav-link btn btn-outline-primary btn-lg btn-block active" href="{{ route('section.session_import') }}">
                   <span data-feather="home"></span>
@@ -79,6 +81,18 @@
                   Professeurs <span class="sr-only">(current)</span>
                 </a>
               </li>
+
+    @elseif (auth()->user()->users_roles == 'jury') 
+    <li class="nav-item">
+                <a class="nav-link btn btn-outline-primary btn-lg btn-block active" href="{{ route('jury.index') }}">
+                  <span data-feather="home"></span>
+                  Tableau de bord <span class="sr-only">(current)</span>
+                </a>
+              </li>
+                
+    @endif
+             
+              
             </ul>
           </div>
         </nav>
