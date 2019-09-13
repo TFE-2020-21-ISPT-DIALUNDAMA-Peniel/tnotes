@@ -38,7 +38,7 @@ class TitulairesLoginController extends Controller
           return redirect($this->redirectTo());
     	}
 
-    	return back()->withErrors(['pseudo'=>'pseudo or password are wrong.']);
+    	return back()->withErrors(['pseudo'=>'Pseudo ou mot de passe invalide.']);
 
     }
 

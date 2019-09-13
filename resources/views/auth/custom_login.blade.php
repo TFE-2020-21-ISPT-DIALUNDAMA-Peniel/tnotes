@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="icon" href="https://getbootstrap.com/favicon.ico">
 
-    <title>Signin Template for Bootstrap</title>
+    <title>TCotes</title>
 
     <!-- Bootstrap core CSS -->
     <!-- Custom CSS -->
@@ -71,7 +71,7 @@
   <body class="text-center">
     <form class="form-signin" method="POST" action="{{ route('login') }}">
       @csrf
-      <img class="mb-4" src="{{ asset('img/logoIspt.gif') }}" alt="" width="72" height="72">
+      <img class="mb-4" src="{{ asset('/img/tcote.png') }}" alt="" width="72" height="72">
       <h5 class="h5 mb-5 font-weight-normal">ISPT-KIN</h5>
       @include('partials._msgFlash')
       <label for="username" class="sr-only">Pseudo</label>

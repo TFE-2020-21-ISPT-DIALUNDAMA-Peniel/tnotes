@@ -16,12 +16,19 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-	$data =  App\Models\Cote::getFicheCote(7,5);
+	$data =  App\Models\Cote::getFicheComplete(13);
 	dd($data->get());																										
     return $data;
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', function(){
+	if (auth()->check()) {
+            $role = auth()->user()->users_roles;
+            return redirect()->route($role.'.index');
+        }
+        
+      return abort();
+});
 
 Route::get('/titulaires-login', 'Auth\TitulairesLoginController@showLoginForm')->name('prof-login');
 Route::post('/titulaires-login', ['as'=> 'titulaires-login','uses'=>'Auth\TitulairesLoginController@login']);

@@ -17,7 +17,7 @@ class FicheCotesDataTable extends DataTable
     {
         return datatables($query)
             ->addColumn('action', function($query){
-                return '<button type="button" class="link-cote btn btn-info"  data-info="'.$query->idcotes.','.$query->cote.','.$query->idetudiants.'" data-toggle="modal" data-target="#exampleModalCenter"><span class= "fas fa-edit"> </span></button>';
+                return '<button type="button" class="link-cote btn btn-info"  data-info="'.$query->idcotes.','.$query->cote.','.$query->idetudiants.','.$query->nom.'" data-toggle="modal" data-target="#exampleModalCenter"><span class= "fas fa-edit"> </span></button>';
             });
     }
 

@@ -56,6 +56,12 @@
            <input type="text" name="idcours" id="fidcours" value="{{ $idcours->idcours }}" required="" style="display: none">
            <input type="hidden" name="idtype_cotes" id="fidtype_cotes" value="{{ $idtype_cotes->idtype_cotes }}" required="">
            {{-- <input type="hidden" name="idcotes" id="idcotes" value="{{ $auditoire->idauditoires }}"> --}}
+           <div class="form-group">
+                <label for="nom"  class="col-sm-12 control-label">Nom de l'étudiant</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control disable" id="fnom" name="nom" placeholder=""  disabled="">
+                </div>
+            </div>
             <div class="form-group">
                 <label for="Note"  class="col-sm-2 control-label">Note</label>
                 <div class="col-sm-12">
@@ -109,6 +115,7 @@
 			$('#fidcotes').val(details[0]);
 			$('#fcote').val(details[1]);
 			$('#fidetudiants').val(details[2]);
+			$('#fnom').val(details[3]);
 			
 			}
 

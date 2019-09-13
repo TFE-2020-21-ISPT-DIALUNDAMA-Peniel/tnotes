@@ -31,7 +31,8 @@
 </head>
   <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{ route('home') }}">TCotes | ISPT</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="
+      #">TCotes | ISPT</a>
       <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
@@ -49,7 +50,7 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
                 <li class="text-center mx-auto d-block sidebar-item">
-                    <img style="max-width: 60%" src="{{ asset('/img/logoIspt.gif') }}" class="user-image rounded-circle img-responsive img-fluid"/>
+                    <img style="max-width: 60%" src="{{ asset('/img/tcote.png') }}" class="user-image rounded-circle img-responsive img-fluid"/>
                 </li>
                 <br>
              
